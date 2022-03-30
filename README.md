@@ -1,4 +1,4 @@
-# 끊임 없이 배우고 싶은 신입 개발자 조연하 입니다.
+<h1>끊임 없이 배우고 싶은 신입 개발자 조연하 입니다.</h1>
 
 ## Intro
 >+ name : 조연하
@@ -7,7 +7,9 @@
 <br>
 
 ## Project 
-> ### <b>Hello,Traveler<b> (4인 팀 프로젝트/2021.12.01 ~ 2022.02.27) <br>
+> ### <b>Hello,Traveler<b> (4인 팀 프로젝트)<br>
+>개발기간 : 2021.12.01 ~ 2022.02.27 <br>
+><br>
 > 여행을 좋아하는 사람들을 위한 여행커뮤니티<br>
 > 유저들과 여행에 관한 여러 소통을 주고 받을 수 있으며, 여행사 기업을 통해 여행 상품을 판매 합니다.<br>
 > <br>
@@ -28,4 +30,6 @@
 <br>
 
 >## 맡은 파트
->+ 회원가입 입력 제한걸기 [코드확인](https://github.com/YHDA0605/Portfolio/blob/604d63884ef6e3312068a31fe026e144644c1a9c/src/main/webapp/resources/js/regist.js#L83)
+>+ 회원가입 폼 입력 제한조건 [코드확인](https://github.com/YHDA0605/Portfolio/blob/604d63884ef6e3312068a31fe026e144644c1a9c/src/main/webapp/resources/js/regist.js#L83)
+>+ 회원탈퇴 [코드확인](https://github.com/YHDA0605/Portfolio/blob/9dc1823fb54c116b299e9556d76acb2863367934/src/main/java/com/teamHT/helloTraveler/HomeController.java#L256)
+>
