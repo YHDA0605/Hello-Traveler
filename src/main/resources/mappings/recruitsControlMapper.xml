@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IRecruitsControlDAO">
+	
+	<resultMap type="memDTO" id="membersDTO">
+		<result column="MEM_NICK" property="mem_nick"/>
+	</resultMap>
+	
+	<resultMap type="comDTO" id="commonsDTO">
+		<result column="COMMON_NAME" property="common_name"/>
+	</resultMap>
+	
+	<resultMap type="recruDTO" id="RecruitsDTO">
+		<result column="COMMON_CODE" property="common_code"/>
+		<result column="RECU_CODE" property="recu_code"/>
+		<result column="MEM_CODE" property="mem_code"/>
+		<result column="RECU_TITLE" property="recu_title"/>
+		<result column="RECU_CONT" property="recu_cont"/>
+		<result column="RECU_REG_DATE" property="recu_reg_date"/>
+		<result column="RECU_START_DATE" property="recu_start_date"/>
+		<result column="RECU_END_DATE" property="recu_end_date"/>
+		<result column="RECU_DEADLINE" property="recu_deadline"/>
+		<result column="RECU_APPLY_N" property="recu_apply_n"/>
+		<result column="RECU_MAX_N" property="recu_max_n"/>
+		<result column="RECU_COMMON_CODE" property="recu_common_code"/>
+		<result column="RECU_HIT" property="recu_hit"/>
+		<collection property="membersDTO" resultMap="membersDTO"/>
+		<collection property="commonsDTO" resultMap="commonsDTO"/>
+	</resultMap>
+	
+	<select id="countRecruits" resultType="int">
+		SELECT COUNT(RECU_CODE) 
+		FROM   RECRUITS R
+		JOIN   MEMBERS  M
+		ON     R.MEM_CODE = M.MEM_CODE
+		WHERE  NOT(R.RECU_COMMON_CODE = '31003')
+		AND    R.COMMON_CODE LIKE #{common_code}||'%'
+		AND	   R.RECU_TITLE LIKE '%'||#{search_title}||'%'
+		AND	   M.MEM_NICK LIKE '%'||#{search_nick}||'%'
+	</select>
+	
+	<select id="selectRecruitsList" resultMap="RecruitsDTO">
+		SELECT *
+		FROM   ( SELECT ROWNUM RNUM
+              		  , O.*
+         		 FROM   ( SELECT R.COMMON_CODE
+         		 			   , R.RECU_CODE
+         		 			   , R.MEM_CODE
+         		 			   , R.RECU_TITLE
+         		 			   , R.RECU_CONT
+         		 			   , R.RECU_REG_DATE
+         		 			   , R.RECU_START_DATE
+         		 			   , R.RECU_END_DATE
+         		 			   , R.RECU_DEADLINE
+         		 			   , R.RECU_APPLY_N
+         		 			   , R.RECU_MAX_N
+         		 			   , R.RECU_COMMON_CODE
+         		 			   , R.RECU_HIT
+                       		   , M.MEM_NICK
+                       		   , C.COMMON_NAME
+                  		  FROM   RECRUITS R
+                  		  JOIN   MEMBERS M
+                  		  ON     R.MEM_CODE = M.MEM_CODE
+                  		  JOIN   COMMONS C
+                  		  ON     R.COMMON_CODE = C.COMMON_CODE
+                  		  WHERE  NOT(R.RECU_COMMON_CODE = '31003')
+                  		  AND    R.COMMON_CODE LIKE #{common_code}||'%'
+                  		  AND	 R.RECU_TITLE LIKE '%'||#{search_title}||'%'
+                  		  AND	 M.MEM_NICK LIKE '%'||#{search_nick}||'%'
+                  		  ORDER  BY R.COMMON_CODE
+                  		  	   , TO_NUMBER(R.RECU_CODE) DESC
+                		) O
+       		   )
+		WHERE  RNUM   &gt;= #{start}
+		AND    ROWNUM &lt;= #{end}
+	</select>
+	
+	
+	<select id="selectRecruitOne" resultMap="RecruitsDTO">
+		SELECT r.*
+			 , r.RECU_CODE
+			 , r.MEM_CODE
+			 , r.RECU_TITLE
+			 , r.RECU_CONT
+			 , TO_CHAR(r.RECU_REG_DATE) AS RECU_REG_DATE
+			 , r.RECU_START_DATE
+			 , r.RECU_END_DATE
+			 , r.RECU_DEADLINE
+			 , r.RECU_APPLY_N
+			 , r.RECU_MAX_N
+			 , r.RECU_COMMON_CODE
+			 , r.RECU_HIT 
+			 , m.MEM_NICK
+			 , c.COMMON_NAME
+		FROM   RECRUITS r
+		JOIN   MEMBERS m
+		ON     r.mem_code = m.mem_code
+		JOIN   COMMONS c
+		ON     r.COMMON_CODE = c.COMMON_CODE
+		WHERE  r.COMMON_CODE = #{common_code} 
+		AND    r.RECU_CODE   = #{recu_code}
+	</select>
+	
+	
+	<update id="delete">
+		UPDATE RECRUITS 
+		SET    MEM_CODE         = #{mem_code}
+		     , RECU_TITLE       = #{recu_title}
+		     , RECU_CONT        = #{recu_cont}
+		     , RECU_REG_DATE    = #{recu_reg_date}
+		     , RECU_START_DATE  = #{recu_start_date}
+		     , RECU_END_DATE    = #{recu_end_date}
+		     , RECU_DEADLINE    = #{recu_deadline}
+		     , RECU_APPLY_N     = #{recu_apply_n}
+		     , RECU_MAX_N       = #{recu_max_n}
+		     , RECU_COMMON_CODE = #{recu_common_code}
+		     , RECU_HIT         = #{recu_hit} 
+		WHERE  COMMON_CODE      = #{common_code} 
+		AND    RECU_CODE        = #{recu_code}
+	</update>
+	
+	<select id="newIndex" resultMap="RecruitsDTO">
+		SELECT *
+		FROM   ( SELECT ROWNUM RNUM
+              		  , O.*
+         		 FROM   ( SELECT R.COMMON_CODE
+         		 			   , R.RECU_CODE
+         		 			   , R.MEM_CODE
+         		 			   , R.RECU_TITLE
+         		 			   , R.RECU_CONT
+         		 			   , R.RECU_REG_DATE
+         		 			   , R.RECU_START_DATE
+         		 			   , R.RECU_END_DATE
+         		 			   , R.RECU_DEADLINE
+         		 			   , R.RECU_APPLY_N
+         		 			   , R.RECU_MAX_N
+         		 			   , R.RECU_COMMON_CODE
+         		 			   , R.RECU_HIT
+                       		   , M.MEM_NICK
+                       		   , C.COMMON_NAME
+                  		  FROM   RECRUITS R
+                  		  JOIN   MEMBERS M
+                  		  ON     R.MEM_CODE = M.MEM_CODE
+                  		  JOIN   COMMONS C
+                  		  ON     R.COMMON_CODE = C.COMMON_CODE
+                  		  WHERE  NOT(R.RECU_COMMON_CODE = '31003')
+                  		  ORDER  BY R.RECU_REG_DATE DESC
+                		) O
+       		   )
+		<![CDATA[WHERE  ROWNUM <=10]]> 
+	</select>
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.ISale_TravDAO">
+	<select id="selectOne" resultType="saleDTO">
+		SELECT * 
+		FROM   SALE_TRAV 
+		WHERE  COMMON_CODE = #{common_code} 
+		AND    TRAV_CODE   = #{trav_code} 
+		AND    SALE_CODE   = #{sale_code} 
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO SALE_TRAV 
+		VALUES    ( #{common_code}
+				  , #{trav_code}
+				  , #{sale_code}
+				  , #{start_day}
+				  , #{end_day}
+				  , #{sale_price}
+				  , #{crt_num}
+				  , #{max_num}
+				  , #{sale_state})
+	</insert>
+	
+	<update id="update">
+		UPDATE SALE_TRAV 
+		SET    START_DAY   = #{start_day}
+			 , END_DAY     = #{end_day}
+			 , SALE_PRICE  = #{sale_price}
+			 , CRT_NUM     = #{crt_num}
+			 , MAX_NUM     = #{max_num}
+			 , SALE_STATE  = #{sale_state} 
+		WHERE  COMMON_CODE = #{common_code} 
+		AND    TRAV_CODE   = #{trav_code} 
+		AND    SALE_CODE   = #{sale_code} 
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM SALE_TRAV 
+		WHERE  COMMON_CODE = #{common_code} 
+		AND    TRAV_CODE   = #{trav_code} 
+		AND    SALE_CODE   = #{sale_code} 
+	</delete>
+	
+	<select id="selectAll" resultType="saleDTO">
+		SELECT * 
+		FROM   SALE_TRAV 
+		ORDER  BY COMMON_CODE
+			 , TRAV_CODE
+			 , SALE_CODE
+	</select>
+	
+	<select id="codeCount" resultType="string">
+		SELECT MAX(TO_NUMBER(SALE_CODE))
+		FROM   SALE_TRAV
+	</select>
+	
+</mapper>

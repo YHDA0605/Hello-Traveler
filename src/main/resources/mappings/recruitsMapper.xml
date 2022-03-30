@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IRecruitsDAO">
+	
+	<select id="maxRecuCode" resultType="string">
+		SELECT COUNT(RECU_CODE)
+		FROM   RECRUITS
+	</select>
+	
+	
+	<select id="selectOne" resultType="recruDTO">
+		SELECT * 
+		FROM   RECRUITS 
+		WHERE  COMMON_CODE = #{common_code} 
+		AND    RECU_CODE   = #{recu_code}
+	</select>
+	
+	<select id="selectAll" resultType="recruDTO">
+		SELECT * 
+		FROM   RECRUITS 
+		ORDER  BY RECU_CODE DESC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO RECRUITS 
+		VALUES    ( #{common_code}
+		          , #{recu_code}
+		          , #{mem_code}
+		          , #{recu_title}
+		          , #{recu_cont}
+		          , SYSDATE
+		          , #{recu_start_date}
+		          , #{recu_end_date}
+		          , #{recu_deadline}
+		          , #{recu_apply_n}
+		          , #{recu_max_n}
+		          , #{recu_common_code}
+		          , #{recu_hit})
+	</insert>
+	
+	<update id="update">
+		UPDATE RECRUITS 
+		SET    MEM_CODE         = #{mem_code}
+		     , RECU_TITLE       = #{recu_title}
+		     , RECU_CONT        = #{recu_cont}
+		     , RECU_REG_DATE    = #{recu_reg_date}
+		     , RECU_START_DATE  = #{recu_start_date}
+		     , RECU_END_DATE    = #{recu_end_date}
+		     , RECU_DEADLINE    = #{recu_deadline}
+		     , RECU_APPLY_N     = #{recu_apply_n}
+		     , RECU_MAX_N       = #{recu_max_n}
+		     , RECU_COMMON_CODE = #{recu_common_code}
+		     , RECU_HIT         = #{recu_hit} 
+		WHERE  COMMON_CODE      = #{common_code} 
+		AND    RECU_CODE        = #{recu_code}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM RECRUITS 
+		WHERE  COMMON_CODE = #{common_code} 
+		AND    RECU_CODE   = #{recu_code}
+	</delete>
+	
+</mapper>

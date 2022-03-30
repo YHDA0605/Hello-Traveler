@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.ITrav_ComDAO">
+
+	<!-- 여기부터 추가 02-22 -->
+	<select id="maxComCode" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(COM_CODE)), 0)
+		FROM   TRAV_COM
+	</select>
+	
+	<select id="selectTravComs" resultType="travcomDTO">
+		SELECT * 
+		FROM   ( SELECT ROWNUM RNUM
+		              , O.*
+		         FROM   ( SELECT *
+		         		  FROM   TRAV_COM
+		         		  ORDER  BY COM_CODE
+		         		) O
+		         	
+		       )
+		WHERE  RNUM   &gt;= #{start}
+		AND    ROWNUM &lt;= #{end}
+	</select>
+	<!-- 여기까지 -->
+	
+	
+	
+	<select id="sltOne" resultType="travcomDTO">
+		SELECT * 
+		FROM   TRAV_COM 
+		WHERE  COM_CODE = #{com_code} 
+	</select>
+	
+	<select id="getComcode" resultType="travcomDTO">
+		SELECT * 
+		FROM   TRAV_COM 
+		WHERE  MEM_CODE = #{mem_code} 
+	</select>
+	
+	<select id="comNoChk" resultType="travcomDTO">
+		SELECT * 
+		FROM   TRAV_COM 
+		WHERE  COM_NUMBER = #{com_number} 
+	</select>
+	
+	<select id="selectAll" resultType="travcomDTO">
+		SELECT * 
+		FROM   TRAV_COM 
+		ORDER  BY COM_CODE
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO TRAV_COM 
+		VALUES    ( #{com_code}
+				  , #{mem_code}
+				  , #{com_name}
+				  , #{com_addr}
+				  , #{opening}
+				  , #{com_number})
+	</insert>
+
+	<update id="update">
+		UPDATE TRAV_COM 
+		SET    COM_NAME   = #{com_name}
+			 , COM_ADDR   = #{com_addr}
+			 , OPENING    = #{opening}
+			 , MEM_CODE   = #{mem_code}
+			 , COM_NUMBER = #{com_number} 
+		WHERE  COM_CODE   = #{com_code}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM TRAV_COM 
+		WHERE  COM_CODE = #{com_code}
+	</delete>
+</mapper>

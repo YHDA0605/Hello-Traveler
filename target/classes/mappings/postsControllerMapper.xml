@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IPostsControllerDAO">
+<!-- 닉네임 가져오는 조인 -->
+<resultMap type="memDTO" id="MembersDTO">
+	<result column="MEM_CODE" property="mem_code"/>
+   	<result column="MEM_NICK" property="mem_nick"/>
+</resultMap>
+ 
+<resultMap type="posDTO" id="MEMBER_NICK">
+    <result column="COMMON_CODE" property="common_code"/>
+    <result column="POST_CODE" property="post_code"/>
+    <collection property="membersDto" resultMap="MembersDTO"/>
+</resultMap>
+
+<!-- good 가져오는 조인 -->
+<resultMap type="posDTO" id="Good_Counts">
+    <result column="COMMON_CODE" property="common_code"/>
+    <result column="POST_CODE" property="post_code"/>
+    <result column="MEM_CODE" property="mem_code"/>
+    <result column="POST_TITLE" property="post_title"/>
+    <result column="POST_CONT" property="post_cont"/>
+    <result column="POST_DATE" property="post_date"/>
+    <result column="POST_STATE" property="post_state"/>
+    <result column="POST_HIT" property="post_hit"/>
+    <result column="RE_COMMON_CODE" property="re_common_code"/>
+    <result column="RE_POST_CODE" property="re_post_code"/>
+    <result column="RE_STEP" property="re_step"/>
+    <result column="RE_LEVEL" property="re_level"/>
+    <result column="COUNT" property="count"/>
+    <result column="MEM_NICK" property="mem_nick"/>
+    <result column="FILE_NAME" property="file_name"/>
+</resultMap>
+
+	<select id="selectIndex" resultType="posDTO">
+		SELECT * 
+		FROM(
+	        SELECT P.*, (SELECT NVL(SUM(G.GOOD_STATE),0)
+	                    FROM   GOOD G
+	                    WHERE  G.CODE = P.POST_CODE
+	                    AND    G.COMMON_CODE = P.COMMON_CODE) COUNT,
+	                    (SELECT COUNT(POST_CODE) 
+	                    FROM POSTS POS
+	                    WHERE POS.RE_STEP &gt; 1 
+	                    AND P.RE_POST_CODE = POS.RE_POST_CODE
+	                    AND P.RE_COMMON_CODE = POS.RE_COMMON_CODE) COMENT_COUNT
+	        FROM POSTS P
+	        WHERE  P.RE_STEP &lt; 2 
+			AND    P.POST_STATE = '0'
+	        ORDER BY COUNT DESC
+            )
+        WHERE ROWNUM &lt; 11
+	</select>
+	
+	<select id="countPosts" resultType="int">
+      SELECT COUNT(POST_CODE) 
+      FROM   POSTS P
+      JOIN   MEMBERS M
+      ON     P.MEM_CODE = M.MEM_CODE
+      WHERE  P.RE_STEP &lt; 2 
+      AND    P.POST_STATE = '0'
+      AND    P.COMMON_CODE LIKE #{common_code}||'%'
+      AND    P.POST_TITLE  LIKE '%'||#{search_title}||'%'
+      AND    M.MEM_NICK    LIKE '%'||#{search_nick}||'%'
+   </select>
+   
+<select id="getGoodCounts" resultMap="Good_Counts">
+      SELECT *
+      FROM ( SELECT ROWNUM RNUM
+               , O.*
+               , ( select SUM(good_state)
+                  from good g
+                  where g.code = o.post_code) count
+            FROM ( SELECT P.COMMON_CODE AS COMMON_CODE
+                        , P.POST_CODE   AS POST_CODE
+                        , P.MEM_CODE    AS MEM_CODE
+                        , P.POST_TITLE  AS POST_TITLE
+                        , P.POST_CONT   AS POST_CONT
+                        , TO_CHAR(POST_DATE) AS POST_DATE
+                        , P.POST_STATE AS POST_STATE
+                        , P.POST_HIT AS POST_HIT
+                        , P.RE_COMMON_CODE AS RE_COMMON_CODE
+                        , P.RE_POST_CODE AS RE_POST_CODE
+                        , P.RE_STEP AS RE_STEP
+                        , P.RE_LEVEL AS RE_LEVEL
+                        , M.MEM_NICK AS MEM_NICK
+                 FROM   POSTS P
+                 JOIN   MEMBERS M
+                 ON     P.MEM_CODE = M.MEM_CODE
+                 WHERE  P.RE_STEP &lt; 2
+                 AND    P.POST_STATE = '0'
+                 AND    P.COMMON_CODE LIKE #{common_code}||'%'
+                 AND    P.POST_TITLE LIKE '%'||#{search_title}||'%'
+                 AND    M.MEM_NICK LIKE '%'||#{search_nick}||'%'
+                 ORDER  BY TO_NUMBER(POST_CODE) DESC
+               ) O
+            )
+      WHERE  RNUM &gt;= #{start}
+      AND    ROWNUM &lt;= #{end}
+   </select>
+   
+<select id="getEvents" resultMap="Good_Counts">
+      SELECT *
+      FROM ( SELECT ROWNUM RNUM
+               , O.*
+               , ( select SUM(good_state)
+                  from good g
+                  where g.code = o.post_code) count
+            FROM ( SELECT P.COMMON_CODE AS COMMON_CODE
+                        , P.POST_CODE   AS POST_CODE
+                        , P.MEM_CODE    AS MEM_CODE
+                        , P.POST_TITLE  AS POST_TITLE
+                        , P.POST_CONT   AS POST_CONT
+                        , TO_CHAR(POST_DATE) AS POST_DATE
+                        , P.POST_STATE AS POST_STATE
+                        , P.POST_HIT AS POST_HIT
+                        , P.RE_COMMON_CODE AS RE_COMMON_CODE
+                        , P.RE_POST_CODE AS RE_POST_CODE
+                        , P.RE_STEP AS RE_STEP
+                        , P.RE_LEVEL AS RE_LEVEL
+                        , M.MEM_NICK AS MEM_NICK
+                        , F.FILE_NAME AS FILE_NAME
+                 FROM   POSTS P
+                 JOIN   MEMBERS M
+                 ON     P.MEM_CODE = M.MEM_CODE
+                 LEFT JOIN	FILES F
+                 ON	    F.COMMON_CODE = P.COMMON_CODE AND F.CODE = P.POST_CODE
+                 WHERE  P.RE_STEP &lt; 2
+                 AND    P.POST_STATE = '0'
+                 AND    P.COMMON_CODE LIKE #{common_code}||'%'
+                 AND    P.POST_TITLE LIKE '%'||#{search_title}||'%'
+                 AND    M.MEM_NICK LIKE '%'||#{search_nick}||'%'
+                 ORDER  BY TO_NUMBER(POST_CODE) DESC
+               ) O
+            )
+      WHERE  RNUM &gt;= #{start}
+      AND    ROWNUM &lt;= #{end}
+   </select>
+   
+	<select id="getadminPosts" resultMap="Good_Counts">
+      SELECT *
+      FROM ( SELECT ROWNUM RNUM
+               , O.*
+               , ( select SUM(good_state)
+                  from good g
+                  where g.code = o.post_code) count
+            FROM ( SELECT P.COMMON_CODE AS COMMON_CODE
+                        , P.POST_CODE   AS POST_CODE
+                        , P.MEM_CODE    AS MEM_CODE
+                        , P.POST_TITLE  AS POST_TITLE
+                        , P.POST_CONT   AS POST_CONT
+                        , TO_CHAR(POST_DATE) AS POST_DATE
+                        , P.POST_STATE AS POST_STATE
+                        , P.POST_HIT AS POST_HIT
+                        , P.RE_COMMON_CODE AS RE_COMMON_CODE
+                        , P.RE_POST_CODE AS RE_POST_CODE
+                        , P.RE_STEP AS RE_STEP
+                        , P.RE_LEVEL AS RE_LEVEL
+                        , M.MEM_NICK AS MEM_NICK
+                 FROM   POSTS P
+                 JOIN   MEMBERS M
+                 ON     P.MEM_CODE = M.MEM_CODE
+                 WHERE  P.RE_STEP &lt; 2
+                 AND    P.POST_STATE = '0'
+                 AND    P.POST_TITLE LIKE '%'||#{search_title}||'%'
+                 AND    M.MEM_NICK LIKE '%'||#{search_nick}||'%'
+                 ORDER  BY TO_NUMBER(POST_CODE) DESC
+               ) O
+            )
+      WHERE  RNUM &gt;= #{start}
+      AND    ROWNUM &lt;= #{end}
+   </select>
+   
+<select id="getGoodCount" resultMap="Good_Counts">
+	SELECT DISTINCT A.COMMON_CODE AS COMMON_CODE, A.POST_CODE AS POST_CODE, A.MEM_CODE AS MEM_CODE, A.POST_TITLE AS POST_TITLE, A.POST_CONT AS POST_CONT,
+		TO_CHAR(POST_DATE) AS POST_DATE, A.POST_STATE AS POST_STATE, A.POST_HIT AS POST_HIT, A.RE_COMMON_CODE AS RE_COMMON_CODE,
+		A.RE_POST_CODE AS RE_POST_CODE, A.RE_STEP AS RE_STEP, A.RE_LEVEL AS RE_LEVEL, C.MEM_NICK AS MEM_NICK,
+		   	(SELECT SUM(GOOD_STATE) 
+		   	FROM GOOD B
+		   	WHERE B.COMMON_CODE = A.COMMON_CODE 
+		   	AND B.CODE = A.POST_CODE
+		   	AND B.GOOD_STATE = 1) AS COUNT
+	FROM POSTS A 
+		LEFT JOIN GOOD B ON A.MEM_CODE = NVL(B.MEM_CODE, 0)
+        LEFT JOIN MEMBERS C ON A.MEM_CODE = C.MEM_CODE
+        WHERE A.COMMON_CODE = #{common_code} AND A.POST_CODE = #{post_code}
+</select>
+	
+	
+   <select id="getComment" resultType="posDTO">
+      SELECT P.COMMON_CODE AS COMMON_CODE, P.POST_CODE AS POST_CODE, P.MEM_CODE AS MEM_CODE, P.POST_TITLE AS POST_TITLE, P.POST_CONT AS POST_CONT,
+		TO_CHAR(POST_DATE) AS POST_DATE, P.POST_STATE AS POST_STATE, P.POST_HIT AS POST_HIT, P.RE_COMMON_CODE AS RE_COMMON_CODE,
+		P.RE_POST_CODE AS RE_POST_CODE, P.RE_STEP AS RE_STEP, P.RE_LEVEL AS RE_LEVEL, M.MEM_NICK AS MEM_NICK
+      FROM   POSTS P LEFT JOIN MEMBERS M ON P.MEM_CODE = M.MEM_CODE
+      WHERE  P.COMMON_CODE = #{common_code} 
+      AND    P.RE_POST_CODE = #{post_code} 
+      AND    RE_STEP > 1
+      ORDER BY RE_LEVEL
+   </select>
+   
+</mapper>

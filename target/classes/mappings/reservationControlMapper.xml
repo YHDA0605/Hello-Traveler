@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IReservationControlDAO">
+	
+	<!-- 상품 명 가져오는 조인 -->
+	<resultMap type="memDTO" id="membersDTO">
+		<result column="MEM_NICK" property="mem_nick"/>
+	</resultMap>
+	
+	<resultMap type="comDTO" id="commonsDTO">
+		<result column="COMMON_NAME" property="common_name"/>
+	</resultMap>
+	
+	<resultMap type="resvDTO" id="ReservationDTO">
+		<result column="MEM_CODE" property="mem_code"/>
+		<result column="RES_CODE" property="res_code"/>
+		<result column="COMMON_CODE" property="common_code"/>
+		<result column="TRAV_CODE" property="trav_code"/>
+		<result column="SALE_CODE" property="sale_code"/>
+		<result column="PERSON_NUM" property="person_num"/>
+		<result column="RES_DATE" property="res_date"/>
+		<result column="TRAV_NAME" property="trav_name"/>
+		<result column="SALE_PRICE" property="sale_price"/>
+		<result column="START_DAY" property="start_day"/>
+		<result column="END_DAY" property="end_day"/>
+		<result column="MEM_NICK" property="mem_nick"/>
+	</resultMap>
+	
+	
+	
+	<select id="maxMyRecvs" resultType="int">
+		SELECT NVL(MAX(RES_CODE), 0)
+		FROM   RESERVATION
+		WHERE  MEM_CODE = #{mem_code}
+	</select>
+	
+	<select id="selectOne" resultType="resvDTO">
+		SELECT * 
+		FROM   RESERVATION 
+		WHERE  MEM_CODE = #{mem_code} 
+		AND    RES_CODE = #{res_code} 
+	</select>
+	
+	<select id="selectMyResvList" resultMap="ReservationDTO">
+		SELECT * 
+		FROM ( SELECT ROWNUM RNUM
+             		, O.*
+        	   FROM ( SELECT R.*
+						   , T.TRAV_NAME
+						   , S.SALE_PRICE
+						   , S.START_DAY
+						   , S.END_DAY
+						   , M.MEM_NICK
+                	  FROM   RESERVATION R
+                	  JOIN   MEMBERS M
+                	  ON     R.MEM_CODE = M.MEM_CODE
+                	  JOIN   TRAVEL      T
+                	  ON     R.COMMON_CODE = T.COMMON_CODE
+                	  AND    R.TRAV_CODE = T.TRAV_CODE
+                	  JOIN   SALE_TRAV   S
+                	  ON     R.COMMON_CODE = S.COMMON_CODE
+                	  AND    R.TRAV_CODE = S.TRAV_CODE
+                	  AND    R.SALE_CODE = S.SALE_CODE
+                	  WHERE  R.MEM_CODE = #{mem_code}
+                	  ORDER  BY TO_NUMBER(R.RES_CODE) DESC
+                	) O
+        	 )
+		WHERE  RNUM   &gt;= #{start}
+		AND    ROWNUM &lt;= #{end}
+	</select>
+	
+</mapper>

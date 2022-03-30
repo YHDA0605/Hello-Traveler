@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IFilesDAO">
+
+   <select id="selectOne" resultType="string">
+      SELECT FILE_NAME
+      FROM   FILES
+      WHERE  COMMON_CODE = #{common_code}
+      AND	 CODE		 = #{code}
+   </select>
+
+   <select id="selectAll" resultType="string">
+      SELECT COUNT(SALE_CODE)
+      FROM   FILES
+   </select>
+	
+	<insert id="insert">
+		INSERT INTO FILES 
+		VALUES(
+			#{common_code},
+			#{code},
+			#{file_code},
+			#{file_name}		
+		)
+	</insert>
+	
+	 <select id="maxCode" resultType="string">
+      SELECT COUNT(FILE_CODE)
+      FROM   FILES
+      WHERE  COMMON_CODE = #{common_code}
+   </select>
+   
+</mapper>

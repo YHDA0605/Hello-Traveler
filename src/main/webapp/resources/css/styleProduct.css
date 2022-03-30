@@ -1,0 +1,457 @@
+
+/* 마이페이지에서 보는 화면 */
+.my_product {
+	width: 980px;
+}
+
+.my_product_main {
+	margin-top: 20px;
+	width: 980px;
+}
+
+.my_product_header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.my_product_header div {
+	font-size: var(--font24);
+}
+
+hr {
+	margin: 10px 0;
+}
+.product_thumbnail img{
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+}
+.travels_thumbnail img{
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+}
+
+/* 상품 목록 페이지 css */
+.contents{
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.product_main {
+	width: var(--base-width);
+	margin: 0 auto;
+}
+
+.my_product_tour {
+	width: 216px;
+	height: 200px;
+	margin: 10px;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+	padding: 2px;
+	cursor: pointer;
+}
+
+.my_product_tour .product_thumbnail{
+	margin: 5px auto;
+	width: 200px;
+	height: 100px;
+	background-color: white;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.product_category {
+	display: flex;
+	justify-content: space-around;
+	margin: calc(var(--base-space)* 5);
+	padding: 0px;
+	width: 1000px;
+}
+
+/* 수정수정수정수정  0215  */
+.product_main_title {
+	margin-top: calc(var(--base-space)*4);
+    padding: var(--base-space);
+    font-size: var(--font24);
+}
+
+.product_category .btn {
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+	text-align: center;
+	font-size: var(--font16);
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+}
+
+.content_title {
+	font-size: var(--font20);
+}
+
+
+.product_content {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding: 10px;
+}
+
+/*  ========================================================== */
+.product_tour {
+	width: 250px;
+	height: 200px;
+	margin: 10px;
+	padding: 2px;
+	border-radius: 10px 10px 10px 10px;
+	cursor: pointer;
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* travel Write css */
+.tourproduct_container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.tourproduct_header {
+	margin: 10px 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.tourproduct_Btn {
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	width: var(--btn2Wei);
+	height: var(--btn2Hei);
+}
+
+.tourproduct_body {
+	width: 1000px;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+.common_name {
+	padding: var(--base-space);
+	font-size: var(--font24);
+}
+
+.tourproduct_title {
+	width: 978px;
+	margin: 10px 0;
+	padding: calc(var(--base-space)* 2);
+	font-size: var(--font24);
+	border: 1px solid black;
+}
+
+.trav_desc {
+	padding: calc(var(--base-space)* 2);
+	margin: 10px 0;
+	min-height: 50px;
+	width: 978px;
+	resize: none;
+}
+
+.trav_cont {
+	padding: calc(var(--base-space)* 2);
+	margin: 10px 0;
+	min-height: 400px;
+	width: 978px;
+	resize: none;
+}
+
+.tourproduct_table{
+	border-collapse: collapse;
+	text-align: center;
+	width: 1000px;
+}
+
+.tourproduct_table td {
+	border-collapse: collapse;
+	border: 1px solid black;
+	padding: var(--base-space);
+}
+
+.tourproduct_table input {
+	border: 1px solid black;
+}
+
+.back_Btn {
+	display: flex;
+	justify-content: right;
+}
+
+.box {
+	width: 80px;
+	height: 20px;
+}
+
+.trav_content_images>textarea {
+	margin: 20px 0;
+	width: 1000px;
+	min-height: 100px;
+}
+
+/* 추가입력사항 */
+.product_tour .product_thumbnail {
+	width: inherit;
+	height: 110px;
+	background-color: white;
+	border-radius: 10px 10px 0px 0px;
+}
+.product_info{
+	height: 80px;
+	padding: 5px 0;
+	position: relative;
+	border-top: 1px solid rgba(0,0,0,0.2);
+}
+
+.product_info .product_name{
+	font-size: var(--font24);
+	padding: 5px; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.product_info .product_desc{
+	padding: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.product_info .product_price{
+	padding: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.boradBtn {
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+	cursor: pointer;
+}
+
+.notAllowedBtn{
+	background-color: gray;
+	color: var(--mainColorWhite);
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+	cursor: pointer;
+}
+.boardBtn2 {
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+	cursor: pointer;
+	text-align: center;
+	padding-right: 65px;
+}
+
+div.write {
+	text-align: right;
+}
+
+#select1 {
+	width: 100px;
+}
+
+#QnaType {
+	width: 100px;
+}
+
+.contentBox {
+	border-top: 1px solid black;
+	margin: var(--base-space) 0;
+}
+
+.articleBtn {
+	text-align: right;
+	margin: calc(var(--base-space)*5);
+}
+
+.articleInfo {
+	display: flex;
+	justify-content: space-between;
+}
+
+.trav_contentTitle {
+	font-size: var(--font24);
+	margin: calc(var(--base-space)*5);
+}
+
+.trav_contentInfo{
+	display: flex;
+	justify-content: space-between;
+	margin: 25px;
+}
+
+.travels_thumbnail{
+	flex: 1;
+	border: 1px solid black;
+	min-height: 350px;
+	min-width: 500px;
+	border-radius: 10px;
+}
+
+.travels_info {
+	flex: 1;
+	border: 1px solid black;
+	padding: 20px;
+	margin: 25px 0 25px 25px;
+	border-radius: 5px;
+	font-size: var(--font20);
+}
+
+.travels_info div{
+	padding: 5px;
+}
+
+.trav_contentInfo span {
+	color: gray;
+}
+
+/* 02-23 추가(양) 스와이퍼 css */
+.sale-list-box{
+	margin: 25px;
+	padding:15px 0;
+	border: 1px solid gray;
+	border-radius: 10px;
+	background-color: lightgray;
+	position: relative;
+}
+
+.mySwiper {
+	display: flex;
+	width: 1100px;
+	margin: 0 auto;
+	overflow: hidden;
+	height: 120px;
+	align-items: center;
+}
+
+.swiper-wrapper{
+	height: 100px;
+}
+
+.swiper-slide{
+	border: 1px solid gray;
+	border-radius: 10px;
+	background-color: #f8f8f8;
+	margin: 0 9px;
+	width: 200px !important;
+}
+.swiper-slide > div{
+	display: flex;
+}
+
+.swiper-button-prev{
+	left: 5px;
+}
+
+.swiper-button-next{
+	right: 5px;
+}
+
+.swiper-slide .key{
+	width: 65px;
+}
+
+.swiper-slide .value{
+	margin-left: 5px
+}
+
+.trav_content {
+	font-size: var(--font16);
+	min-height: 500px;
+	margin: calc(var(--base-space)*5);
+}
+
+.trav_content >div{
+	padding: 10px;
+	font-size: var(--font20);
+}
+
+.trav_content > p{
+	padding: 10px;
+}
+
+.comentWriteBox {
+	border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+#textBox {
+	width: 1000px;
+	height: 200px;
+	margin: var(--base-space);
+}
+
+.borad_comentTitle {
+	display: flex;
+	align-items: center;
+}
+
+textarea {
+	border: 1px solid black;
+	resize: none;
+}
+
+table {
+	width: 1000px;
+	margin: 10px 0;
+}
+
+.fixed {
+	position: sticky;
+	bottom: 25px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+}
+
+fixed > form{
+	position: relative;
+}
+
+.tourproduct_box{
+	position:absolute;
+	bottom: 25px;
+	padding: 10px;
+	background-color: white;
+	border-collapse: collapse;
+	text-align: center;
+	width: 500px;
+	right: 0;
+	border-radius: 10px
+}
+
+.tourproduct_box td {
+	border-collapse: collapse;
+	border: 1px solid black;
+	padding: var(--base-space);
+}
+
+.tourproduct_box input {
+	border: 1px solid black;
+}
+.container.product {
+	margin-left: 70px;
+}
+
+.active{
+	background: var(--mainColorWhite);
+	box-shadow: 1px 1px 10px var(--mainColorBlue);
+	border: 1px solid var(--mainColorBlue);
+	
+}

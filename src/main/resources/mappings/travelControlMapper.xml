@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.teamHT.helloTraveler.DAO.ITravelControlDAO">
+	
+	<resultMap type="comDTO" id="CommonsDTO">
+		<result column="COMMON_NAME" property="common_name"/>
+	</resultMap> 
+	
+	<resultMap type="travcomDTO" id="Trav_ComDTO">
+		<result column="MEM_CODE" property="mem_code"/>
+		<result column="COM_NAME" property="com_name"/>
+	</resultMap> 
+	
+	<resultMap type="travelDTO" id="TravelDTO">
+		<result column="COMMON_CODE" property="common_code"/>
+		<result column="TRAV_CODE" property="trav_code"/>
+		<result column="COM_CODE" property="com_code"/>
+		<result column="TRAV_NAME" property="trav_name"/>
+		<result column="TRAV_PRICE" property="trav_price"/>
+		<result column="TRAV_NIGHTS" property="trav_nights"/>
+		<result column="TRAV_CONT" property="trav_cont"/>
+		<result column="TRAV_DESC" property="trav_desc"/>
+		<result column="TRAV_REG_DATE" property="trav_reg_date"/>
+		<result column="TRAV_STATE" property="trav_state"/>
+		<result column="COM_NAME" property="com_name"/>
+		<result column="MEM_CODE" property="mem_code"/>
+		<result column="COMMON_NAME" property="common_name"/>
+	</resultMap>	
+	
+	<select id="countTravel" resultType="int">
+		SELECT COUNT(*)
+		FROM   (SELECT DISTINCT T.COMMON_CODE
+                     , T.TRAV_CODE FROM TRAVEL T
+		        JOIN   SALE_TRAV S
+                ON     T.COMMON_CODE = S.COMMON_CODE
+                AND    T.TRAV_CODE = S.TRAV_CODE
+                WHERE  T.TRAV_STATE = '2'
+				AND    T.COMMON_CODE LIKE #{common_code}||'%')
+	</select>
+	
+	
+	<select id="countTravelCom" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(TRAV_CODE)),0)
+		FROM   TRAVEL T
+		JOIN   TRAV_COM C
+		ON     C.COM_CODE = T.COM_CODE
+		WHERE  C.MEM_CODE = #{mem_code}
+		AND    NOT(t.TRAV_STATE = '2')
+	</select>	
+	
+	<select id="selectTravelList" resultType="travelDTO">
+		SELECT *
+		FROM   ( SELECT ROWNUM RNUM
+					  , O.*
+         		 FROM   ( SELECT  DISTINCT S.COMMON_CODE COMMON_CODE
+                      					 , S.TRAV_CODE   TRAV_CODE
+										 , T.TRAV_NAME
+                      					 , T.TRAV_DESC
+                                         , T.TRAV_REG_DATE
+                                         , F.FILE_NAME
+                  		  FROM   SALE_TRAV S
+                  		  JOIN   TRAVEL T
+                  		  ON     S.COMMON_CODE = T.COMMON_CODE
+                  		  AND    S.TRAV_CODE = T.TRAV_CODE
+                  		  JOIN   FILES F
+        				  ON     F.COMMON_CODE = S.COMMON_CODE 
+        				  AND    F.CODE = S.TRAV_CODE
+                  		  WHERE  T.TRAV_STATE = '2'
+                  		  AND    S.COMMON_CODE LIKE #{common_code}||'%'
+                  		  ORDER  BY T.TRAV_REG_DATE DESC
+                	    ) O
+       		   )
+		WHERE  RNUM   &gt;= #{start}
+		AND    ROWNUM &lt;= #{end}
+	</select>
+	
+	<select id="selectTravelComList" resultType="travelDTO">
+		SELECT *
+		FROM   ( SELECT ROWNUM RNUM
+              		  , O.*
+         		 FROM   ( SELECT T.*
+			 		    	   , C.MEM_CODE
+			 				   , C.COM_NAME
+			 				   , F.FILE_NAME
+						  FROM   TRAVEL T
+						  JOIN   TRAV_COM C
+						  ON     C.COM_CODE = t.COM_CODE
+        				  AND    C.MEM_CODE = #{mem_code}
+        				  JOIN   FILES F
+        				  ON     F.COMMON_CODE = T.COMMON_CODE 
+        				  AND    F.CODE = T.TRAV_CODE
+						  ORDER  BY TRAV_REG_DATE ASC
+                		) O
+       		   )
+		WHERE  RNUM   &gt;= #{start}
+		AND    ROWNUM &lt;= #{end}
+	</select>
+	
+	<select id="selectTravelOne" resultType="travelDTO">
+	 	SELECT t.*
+             , c.MEM_CODE
+             , c.COM_NAME
+             , co.COMMON_NAME
+             , f.FILE_NAME
+        FROM   TRAVEL t
+             , TRAV_COM c
+             , COMMONS co
+             , FILES f
+        WHERE  c.COM_CODE = t.COM_CODE
+        AND    t.COMMON_CODE = co.COMMON_CODE
+        AND    t.COMMON_CODE = #{common_code} 
+        AND	   t.TRAV_CODE = #{trav_code}
+        AND    f.COMMON_CODE = t.COMMON_CODE
+        AND    f.CODE = t.TRAV_CODE
+	</select>
+	
+	<!--travelCoWrite에서 사용  / 나라이름 넣기-->
+	<select id="selectSaleOne" resultType="travelDTO">
+		SELECT t.*
+             , c.MEM_CODE
+             , c.COM_NAME
+             , co.COMMON_NAME
+        FROM   TRAVEL t
+        LEFT   OUTER JOIN TRAV_COM c 
+        ON     t.COM_CODE = c.COM_CODE 
+        LEFT   OUTER JOIN COMMONS co 
+        ON     t.COMMON_CODE = co.COMMON_CODE 
+        AND    co.COMMON_CODE = #{common_code} 
+        WHERE  t.COMMON_CODE = #{common_code}  
+        AND	   t.TRAV_CODE = #{trav_code}
+	</select> 
+	
+	<update id="deleteTravel">
+		UPDATE TRAVEL 
+		SET    TRAV_NAME     = #{trav_name}
+		     , TRAV_PRICE    = #{trav_price}
+		     , TRAV_CONT     = #{trav_cont}
+		     , TRAV_DESC     = #{trav_desc}
+		     , TRAV_NIGHTS   = #{trav_nights}
+		     , TRAV_REG_DATE = #{trav_reg_date}
+		     , TRAV_STATE    = #{trav_state}
+        WHERE  COMMON_CODE   = #{common_code} 
+        AND	   TRAV_CODE     = #{trav_code}  
+	</update>
+	
+	
+	<!-- 02-22 추가(양) -->
+	<select id="countTravComsTravelsCount" resultType="int">
+		SELECT count(*)
+		FROM   TRAVEL
+		WHERE  COM_CODE = #{com_code}
+	</select>
+	
+	<!-- 02-22 추가(양) -->
+	<select id="countTravComsTravels" resultType="travelDTO">
+		SELECT *
+		FROM   ( SELECT ROWNUM RNUM
+					  , O.*
+				 FROM   ( SELECT *
+				 		  FROM   TRAVEL
+				 		  WHERE  COM_CODE = #{com_code}
+				 		  ORDER  BY TRAV_CODE
+				 		) O
+			   )
+		WHERE  RNUM   &gt;= #{start}
+		AND    ROWNUM &lt;= #{end}
+	</select>
+
+
+	<!-- 111111111111111111111111111110222 인덱스용111111111111111111111111111111 -->
+	<select id="selectTravelIndex" resultType="travelDTO">
+		SELECT *
+		FROM   ( SELECT O.*
+         		 FROM   ( SELECT  DISTINCT T.COMMON_CODE COMMON_CODE
+                      					 , T.TRAV_CODE   TRAV_CODE
+										 , T.TRAV_NAME
+                      					 , T.TRAV_DESC
+                      					 , T.TRAV_REG_DATE
+                      					 , F.FILE_NAME
+                  		  FROM   SALE_TRAV S
+                  		  JOIN   TRAVEL T
+                  		  ON     S.COMMON_CODE = T.COMMON_CODE
+                  		  AND    S.TRAV_CODE = T.TRAV_CODE
+                  		  JOIN   FILES F
+                  		  ON     F.COMMON_CODE = S.COMMON_CODE
+                  		  AND    F.CODE = S.TRAV_CODE
+                  		  WHERE  T.TRAV_STATE = '2'
+                  		  ORDER  BY T.TRAV_REG_DATE DESC
+                	    ) O
+       		   )
+		WHERE    ROWNUM &lt; 9
+	</select>
+	<!-- 111111111111111111111111111110222 인덱스용111111111111111111111111111111 -->
+	
+	
+	<!-- 02-23 추가(양) -->
+	<select id="max_trav_code" resultType="int">
+		SELECT NVL(MAX(TO_NUMBER(TRAV_CODE)), 0)
+		FROM   TRAVEL
+		WHERE  COMMON_CODE = #{common_code}
+	</select>
+</mapper>

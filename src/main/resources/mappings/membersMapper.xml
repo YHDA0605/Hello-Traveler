@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IMembersDAO">
+	
+	<select id="getMem_code" resultType="String">
+		SELECT MEM_CODE
+		FROM   MEMBERS
+		WHERE  MEM_ID = #{mem_id}
+	</select>
+	
+	<select id="maxCode" resultType="string">
+		SELECT COUNT(MEM_CODE)
+		FROM   MEMBERS
+	</select>
+<!--////////////////////////////////// 2021 추가/////////////////////////   -->
+	<select id="maxId" resultType="String">
+		SELECT  COUNT(MEM_ID)
+		FROM   MEMBERS 
+	</select>
+
+	<select id="loginCheck" resultType="memDTO">
+		SELECT *
+		FROM   MEMBERS
+		WHERE  MEM_ID = #{id}  
+		AND    MEM_STATE = 0
+		AND    MEM_PW = #{pw}
+	</select>
+
+	<select id="idCheck" resultType="memDTO">
+		SELECT *
+		FROM   MEMBERS
+		WHERE  MEM_ID = #{mem_id}
+	</select>
+	<!--////////////////////////////////// 2021 추가/////////////////////////   -->
+	<select id="k_idCheck" resultType="memDTO">
+			SELECT *
+			FROM   MEMBERS
+			WHERE  MEM_SNS_ID = #{mem_sns_id}
+	</select>
+
+
+	<select id="emailCheck" resultType="memDTO">
+		SELECT *
+		FROM   MEMBERS
+		WHERE  MEM_EMAIL = #{mem_email}
+	</select>
+
+	<select id="nickCheck" resultType="memDTO">
+		SELECT *
+		FROM   MEMBERS
+		WHERE  MEM_NICK = #{mem_nick}
+	</select>
+	
+	<select id="codePWCheck" resultType="memDTO">
+		SELECT *
+		FROM   MEMBERS
+		WHERE  MEM_CODE = #{mem_code}
+		AND    MEM_PW   = #{mem_pw}
+	</select>
+
+	<select id="selectOne" resultType="memDTO">
+		SELECT *
+		FROM   MEMBERS
+		WHERE  MEM_CODE = #{mem_code}
+	</select>
+<!--////////////////////////////////// 2021 수정//////////////////////////////////////////////////////   -->
+	<insert id="insert">
+		INSERT INTO MEMBERS
+		VALUES    ( #{mem_code}
+				  , #{mem_id}
+				  , #{mem_pw}
+				  , #{mem_name}
+				  , #{mem_nick}
+				  , #{mem_phone}
+				  , #{mem_email}
+				  , SYSDATE
+				  , #{mem_state}
+				  , #{gender}
+				  , #{common_code}
+				  , #{mem_sns_id})
+	</insert>
+	
+	<update id="update">
+		UPDATE MEMBERS
+		SET    MEM_ID       = #{mem_id}
+			 , MEM_PW       = #{mem_pw}
+			 , MEM_NAME     = #{mem_name}
+			 , MEM_NICK     = #{mem_nick}
+			 , MEM_PHONE    = #{mem_phone}
+			 , MEM_EMAIL    = #{mem_email}
+			 , MEM_REG_DATE = #{mem_reg_date}
+			 , MEM_STATE    = #{mem_state}
+			 , COMMON_CODE  = #{common_code}
+			 , GENDER       = #{gender}
+		WHERE  MEM_CODE     = #{mem_code}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM MEMBERS 
+		WHERE  MEM_CODE = #{mem_code}
+	</delete>
+	
+	<!-- 02.22 -->
+	<update id="updateGrade">
+		UPDATE MEMBERS
+		SET	   COMMON_CODE = #{common_code}
+		WHERE  MEM_CODE = #{mem_code}
+	</update>
+	
+	<select id="countMem" resultType="int">
+      SELECT COUNT(MEM_CODE) 
+      FROM   MEMBERS
+      WHERE  MEM_STATE = '0'
+      AND    MEM_ID  LIKE '%'||#{search_title}||'%'
+      AND    MEM_NICK    LIKE '%'||#{search_nick}||'%'
+   </select>
+
+	<select id="selectAll" resultType="memDTO">
+      SELECT *
+      FROM ( SELECT ROWNUM RNUM
+               , O.*
+            FROM ( SELECT *
+                 FROM   MEMBERS
+                 WHERE  MEM_STATE = '0'
+                 AND    MEM_ID  LIKE '%'||#{search_title}||'%'
+      			 AND    MEM_NICK    LIKE '%'||#{search_nick}||'%'
+                 ORDER  BY COMMON_CODE ASC
+               ) O
+            )
+      WHERE  RNUM &gt;= #{start}
+      AND    ROWNUM &lt;= #{end}
+   </select>
+
+</mapper>

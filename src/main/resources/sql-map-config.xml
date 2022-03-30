@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC  "-//mybatis.org//DTO Config 3.0//EN"
+  "http://mybatis.org./dtd/mybatis-3-config.dtd"> 
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.teamHT.helloTraveler.DTO.CommonsDTO" alias="comDTO"/>
+		<typeAlias type="com.teamHT.helloTraveler.DTO.MembersDTO" alias="memDTO"/>
+		<typeAlias type="com.teamHT.helloTraveler.DTO.MessagesDTO" alias="msgDTO"/>
+		<typeAlias type="com.teamHT.helloTraveler.DTO.PostsDTO" alias="posDTO"/>
+		<typeAlias type="com.teamHT.helloTraveler.DTO.RecruitsDTO" alias="recruDTO"/>
+        <typeAlias type="com.teamHT.helloTraveler.DTO.FilesDTO" alias="fileDTO"/>
+        <typeAlias type="com.teamHT.helloTraveler.DTO.Sale_TravDTO" alias="saleDTO"/>
+        <typeAlias type="com.teamHT.helloTraveler.DTO.ReservationDTO" alias="resvDTO"/>
+        <typeAlias type="com.teamHT.helloTraveler.DTO.Trav_ComDTO" alias="travcomDTO"/>
+        <typeAlias type="com.teamHT.helloTraveler.DTO.TravelDTO" alias="travelDTO"/>
+        <typeAlias type="com.teamHT.helloTraveler.DTO.GoodDTO" alias="goodDTO"/>
+   </typeAliases>
+</configuration>

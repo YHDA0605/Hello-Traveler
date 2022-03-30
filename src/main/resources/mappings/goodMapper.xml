@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IGoodDAO">
+	
+	<select id="getGoodState" resultType="String">
+		SELECT GOOD_STATE
+		FROM   GOOD 
+		WHERE COMMON_CODE = #{common_code} 
+		AND   CODE = #{code} 
+		AND   MEM_CODE = #{mem_code}
+	</select>
+
+
+	<select id="selectOne" resultType="goodDTO">
+		SELECT *
+		FROM  GOOD
+		WHERE COMMON_CODE = #{common_code} 
+		AND   CODE = #{code} 
+		AND   MEM_CODE = #{mem_code}
+	</select>
+
+	<select id="maxCode" resultType="string">
+		SELECT COUNT(GOOD_CODE)
+		FROM   GOOD
+	</select>
+
+	<insert id="insert" parameterType="goodDTO">
+		INSERT INTO GOOD
+		VALUES    ( #{common_code}
+				  , #{code}
+				  , #{good_code}
+				  , #{mem_code}
+				  , #{good_state}
+				  )
+	</insert>
+
+	<update id="update" parameterType="goodDTO">
+		UPDATE GOOD
+		SET    GOOD_STATE = #{good_state}
+		WHERE  MEM_CODE = #{mem_code} AND COMMON_CODE = #{common_code} AND CODE = #{code}
+	</update>
+
+	<delete id="delete" parameterType="goodDTO">
+		DELETE FROM GOOD 
+		WHERE  MEM_CODE = #{mem_code} AND COMMON_CODE = #{common_code} AND CODE = #{code}
+	</delete>
+
+	<select id="selectAll" resultType="goodDTO">
+		SELECT COUNT(CODE)
+		FROM   GOOD 
+		WHERE  COMMON_CODE = #{common_code} AND CODE = #{code}
+	</select>
+</mapper>

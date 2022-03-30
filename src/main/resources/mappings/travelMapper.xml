@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.ITravelDAO">
+
+   <select id="codeCount" resultType="string">
+      SELECT COUNT(SALE_CODE)
+      FROM   SALE_TRAV
+   </select>
+	
+	<select id="sltOne" resultType="travelDTO">
+		SELECT * 
+		FROM   TRAVEL 
+		WHERE  COMMON_CODE = #{common_code} 
+		AND    TRAV_CODE   = #{trav_code}
+	</select>
+	
+	<select id="selectAll" resultType="travelDTO">
+		SELECT * 
+		FROM   TRAVEL 
+		ORDER  BY COMMON_CODE
+			 , TRAV_CODE
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO TRAVEL 
+		VALUES    ( #{common_code}
+				  , #{trav_code}
+				  , #{com_code}
+				  , #{trav_name}
+				  , #{trav_price}
+				  , #{trav_nights}
+				  , #{trav_desc}
+				  , #{trav_cont}
+				  , SYSDATE
+				  , #{trav_state})
+	</insert>
+	
+	<update id="update">
+		UPDATE TRAVEL 
+		SET    TRAV_NAME     = #{trav_name}
+			 , TRAV_PRICE    = #{trav_price}
+			 , TRAV_NIGHTS   = #{trav_nights}
+			 , TRAV_CONT     = #{trav_cont}
+			 , TRAV_DESC     = #{trav_desc}
+			 , TRAV_REG_DATE = #{trav_reg_date}
+			 , TRAV_STATE    = #{trav_state}
+		WHERE  COMMON_CODE   = #{common_code} 
+		AND    TRAV_CODE     = #{trav_code}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM TRAVEL 
+		WHERE  COMMON_CODE = #{common_code}
+		AND    TRAV_CODE   = #{trav_code}
+	</delete>
+	
+	<select id="tcodeCount" resultType="string">
+		SELECT MAX(TRAV_CODE)
+		FROM   TRAVEL
+	</select>
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.teamHT.helloTraveler.DAO.ISale_TravControlDAO">
+	
+ 	<resultMap type="comDTO" id="CommonsDTO">
+		<result column="COMMON_NAME" property="common_name"/>
+	</resultMap> 
+ 	
+ 	<resultMap type="travelDTO" id="TravelDTO">
+		<result column="TRAV_NAME" property="trav_name"/>
+		<result column="TRAV_CODE" property="trav_code"/>
+	</resultMap> 
+	
+ 	<resultMap type="travcomDTO" id="Trav_ComDTO">
+		<result column="COM_NAME" property="com_name"/>
+		<result column="MEM_CODE" property="mem_code"/>
+	</resultMap> 		
+	
+	<resultMap type="saleDTO" id="Sale_TravDTO">
+		<result column="COMMON_CODE" property="common_code"/>
+		<result column="TRAV_CODE" property="trav_code"/>
+		<result column="SALE_CODE" property="sale_code"/>
+		<result column="START_DAY" property="start_day"/>
+		<result column="END_DAY" property="end_day"/>
+		<result column="SALE_PRICE" property="sale_price"/>
+		<result column="CRT_NUM" property="crt_num"/>
+		<result column="MAX_NUM" property="max_num"/>
+		<result column="SALE_STATE" property="sale_state"/>
+		<result column="COM_NAME" property="com_name"/>
+		<result column="TRAV_NAME" property="trav_name"/>
+		<result column="COMMON_NAME" property="common_name"/>
+	</resultMap>
+	
+	<insert id="insertSaleList" parameterType="java.util.List">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM DUAL" separator=" "> 
+			INTO   SALE_TRAV 
+				 ( COMMON_CODE
+				 , TRAV_CODE
+				 , SALE_CODE
+				 , START_DAY
+				 , END_DAY
+				 , SALE_PRICE
+				 , CRT_NUM
+				 , MAX_NUM
+				 , SALE_STATE)
+			VALUES 
+			     ( #{item.common_code}
+			     , #{item.trav_code}
+			     , #{item.sale_code}
+			     , #{item.start_day}
+			     , #{item.end_day}
+			     , #{item.sale_price}
+			     , #{item.crt_num}
+			     , #{item.max_num}
+			     , #{item.sale_state}) 
+		</foreach>
+	</insert>
+	
+	<select id="countSale" resultType="int">
+		SELECT COUNT(SALE_CODE) FROM SALE_TRAV
+		WHERE  COMMON_CODE = #{common_code}
+	</select>
+	
+	<select id="selectSaleList" resultType="saleDTO">
+		SELECT *
+		FROM   ( SELECT ROWNUM RNUM
+              		  , O.*
+         		 FROM   ( SELECT s.*
+			 				   , t.TRAV_NAME
+						  FROM   SALE_TRAV s
+					      JOIN   TRAVEL t
+						  ON     t.TRAV_CODE = s.TRAV_CODE
+        				  WHERE  s.COMMON_CODE = #{common_code} 
+                          AND    s.TRAV_CODE   = #{trav_code}
+                          AND    S.START_DAY > SYSDATE
+						  ORDER  BY s.START_DAY ASC
+                		) O
+       		   )
+	</select>
+	
+	<select id="selectSaleOne" resultType="saleDTO">
+		SELECT  t.COM_NAME
+			  , t.MEM_CODE
+			  , ts.TRAV_NAME
+              , co.COMMON_NAME
+			  , s.*
+		FROM    TRAV_COM t
+		      , TRAVEL ts
+		      , SALE_TRAV s
+              , COMMONS co
+		WHERE   t.COM_CODE = ts.COM_CODE 
+		AND     ts.TRAV_CODE = s.TRAV_CODE
+        AND     ts.COMMON_CODE = co.COMMON_CODE
+		AND  	s.COMMON_CODE = #{common_code} 
+		AND     s.TRAV_CODE   = #{trav_code}  
+		AND     s.SALE_CODE   = #{sale_code} 
+	</select>
+	
+	
+	
+	<update id="deleteSale">
+		UPDATE SALE_TRAV 
+		SET    START_DAY    = #{start_day}
+		     , END_DAY      = #{end_day}
+		     , SALE_PRICE   = #{sale_price}
+		     , CRT_NUM      = #{crt_num}
+		     , MAX_NUM      = #{max_num}
+		     , SALE_STATE   = #{sale_state}
+		WHERE  COMMON_CODE = #{common_code} 
+		AND    TRAV_CODE   = #{trav_code} 
+		AND    SALE_CODE   = #{sale_code} 
+	</update>
+	
+
+	
+</mapper>

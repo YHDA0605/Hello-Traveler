@@ -1,0 +1,262 @@
+/* mypage Navigation Bar*/
+
+.myPageNav button {
+  background-color: var(--mainColorBlue);
+  cursor: pointer;
+  height: var(--btn1Hei);
+  width: var(--btn3Wid);
+  margin: 2px;
+  font-size: var(--font20);
+  color: var(--mainColorWhite);
+  border-radius: 5px;
+}
+
+.myPageBody > .myPageNav {
+  flex: 1;
+}
+
+.myPageNav{
+	max-width: 250px;
+}
+
+.myPageNav li {
+	margin-bottom: calc(var(--base-space)*4);
+}
+
+
+/* mypage */
+.myPage > .title {
+  display: flex;
+  justify-content: space-between;
+  width: var(--base-width);
+  margin: 0 auto;
+  margin-top: calc(var(--base-space) * 4);
+  padding-bottom: calc(var(--base-space) * 2);
+}
+
+.myPage h1{
+	font-weight: lighter;
+}
+
+.myPageBody {
+  width: var(--base-width);
+  margin: 0 auto;
+  display: flex;
+}
+
+
+
+.myPageBody input {
+  border: 1px solid rgba(0, 0, 0, 0.2); /* 임시로 넣어놓음 */
+  font-size: var(--font20);
+  padding-left: calc(var(--base-space)*4); 
+}
+
+
+.myPageBody > .myPageBodyCont {
+  max-width: 950px;
+  width: 100%;
+}
+
+.myInfo{
+	padding: 0 50px;
+}
+
+.myPageBodyCont label {
+  font-size: var(--font24);
+  width: var(--btn2Wid);
+  height: var(--btn2Hei);
+  display: inline-block;
+}
+
+.myPageBodyCont input {
+  width: var(--inputText--wid);
+  height: var(--inputText--hei);
+  margin-bottom: calc(var(--base-space) * 5);
+}
+
+.myPageBodyCont button {
+  width: var(--btn2Wid);
+  height: var(--btn2Hei);
+  font-size: var(--font16);
+}
+
+.myPageBodyCont form{
+	margin: 0;
+}
+
+.noShowBtn {
+	display : none;
+}
+
+.myPageContfield{
+	height: 70px;
+}
+
+.myPageNickChkResult {
+	height: 25px;
+	margin-left: 100px;
+}
+
+
+.pwChangeFormTi,
+.dlemyaccountFormTi{
+	font-size: var(--font28);
+}
+
+
+/* pwChangeBox */
+.changeBox{
+	position: fixed;
+	width:100%;
+	height: 100%;
+	top:0;
+	left:0;
+	text-align: center;
+	font-size: var(--font20);
+	background-color: rgba(0,0,0,0.5);
+	display: flex;
+	align-items: center; 
+	z-index: 10; 
+}
+
+.pwChangeForm{
+	position: relative;
+	background-color: var(--mainColorWhite);
+	width: 500px;
+	margin: 0 auto;
+	border-radius: 18px;
+}
+
+.pwChangeForm > table{
+	width: inherit;
+	height: 200px;
+}
+
+.pwChangeForm input{
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	width: 400px;
+	height: 50px;
+}
+
+.pwChangeForm  td {
+	padding-bottom: calc(var(--base-space)*3);
+}
+
+.pwChangeBtn{
+	left: 0;
+	bottom:0;
+	height: 70px;
+	width: inherit;
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	font-size: var(--font28);
+	border-radius: 0 0 15px 15px; 
+}
+
+.closeBtn{
+	position: absolute;
+	top: calc(var(--base-space)*2);
+	right: var(--base-space);
+	font-size: var(--font28);
+	background-color: var(--baseColorWhite);
+	color: black;
+	
+}
+
+.closedBox{
+	display: none;
+}
+
+.noEdit {
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+}
+
+/*delmyaccountBox*/
+.deltitle{
+   font-size: var(--font28);
+}
+
+.dlemyaccountForm > table{
+   width: inherit;
+}
+
+.dlemyaccountForm  td {
+	padding-bottom: calc(var(--base-space)*3);
+}
+
+.dlemyaccountForm{
+   position: relative;
+   background-color: var(--mainColorWhite);
+   width: 500px;
+   /* height: 280px; */
+   margin: 0 auto;
+   border-radius: 18px;
+}
+
+ .delBtn{
+   /* position: absolute; */
+   left: 0;
+   bottom:0;
+   height: 70px;
+   width: inherit;
+   border: 0;
+   background-color: var(--mainColorBlue);
+   color: var(--mainColorWhite);
+   font-size: var(--font28);
+   border-radius: 0 0 15px 15px; 
+} 
+
+
+/* my reservation */
+.resv_content{
+	border: 1px solid black;
+}
+
+.my_reservation_list{
+	max-width: 950px;
+}
+
+.my_reservation_list .resv_content{
+	max-width: 950px;
+	width: 100%;
+}
+
+.resv_content{
+	border-collapse: collapse;
+}
+
+.resv_content td{
+	padding: 5px;
+}
+
+.my_resv_th{
+	text-align: center;
+}
+
+.my_resv_th td{
+	border-bottom: 1px solid black;
+}
+
+.resv_code,
+.resv_num,
+.trav_price{
+	width: 100px;
+	text-align: center;
+}
+
+.trav_name{
+	padding: 0 10px;
+	width: 600px;
+	max-width: 648px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	
+}
+
+
+.pagingBox{
+	padding: 10px;
+}

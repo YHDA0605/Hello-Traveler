@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IPostsDAO">
+ 
+<resultMap type="posDTO" id="Good_Counts">
+    <result column="COMMON_CODE" property="common_code"/>
+    <result column="POST_CODE" property="post_code"/>
+    <result column="MEM_CODE" property="mem_code"/>
+    <collection property="goodDto" resultMap="GoodDTO"/>
+</resultMap>
+
+
+   <select id="maxCode" resultType="string">
+      SELECT COUNT(POST_CODE)
+      FROM   POSTS
+   </select>
+   
+   <select id="maxComentCode" resultType="string">
+      SELECT COUNT(RE_LEVEL)
+      FROM   POSTS
+      WHERE  COMMON_CODE = #{common_code} AND RE_POST_CODE = #{post_code}
+   </select>
+   
+   <select id="selectOne" resultType="posDTO">
+      SELECT COMMON_CODE, POST_CODE, MEM_CODE, POST_TITLE, POST_CONT,
+      TO_CHAR(POST_DATE) AS POST_DATE, POST_STATE, POST_HIT, RE_COMMON_CODE,
+      RE_POST_CODE, RE_STEP, RE_LEVEL
+      FROM   POSTS 
+      WHERE  COMMON_CODE = #{common_code} 
+      AND    POST_CODE   = #{post_code}
+   </select>
+   
+   <insert id="insert">
+      INSERT INTO POSTS 
+      VALUES    ( #{common_code}
+              , #{post_code}
+              , #{mem_code}
+              , #{post_title}
+              , #{post_cont}
+              , SYSDATE
+              , #{post_state}
+              , #{post_hit}
+              , #{re_common_code}
+              , #{re_post_code}
+              , #{re_step}
+              , #{re_level})
+   </insert>
+   
+   <select id="selectAll" resultType="posDTO">
+      SELECT COMMON_CODE, POST_CODE, MEM_CODE, POST_TITLE, POST_CONT,
+      TO_CHAR(POST_DATE) AS POST_DATE, POST_STATE, POST_HIT, RE_COMMON_CODE,
+      RE_POST_CODE, RE_STEP, RE_LEVEL
+      FROM ( select rownum no, o.* 
+			   from ( select * 
+			   	 	  from POSTS 
+			   	 	  ) o ) 
+		where no &gt;= #{p_num} 
+		and rownum &lt;= 20
+      ORDER  BY COMMON_CODE 
+              , TO_NUMBER(POST_CODE) DESC
+   </select>
+   
+   <update id="update">
+      UPDATE POSTS 
+      SET     POST_TITLE     = #{post_title}
+            , POST_CONT      = #{post_cont}
+            , POST_DATE      = #{post_date}
+            , POST_STATE     = #{post_state}
+            , POST_HIT       = #{post_hit}
+            , RE_COMMON_CODE = #{re_common_code}
+            , RE_POST_CODE   = #{re_post_code}
+            , RE_STEP        = #{re_step}
+            , RE_LEVEL       = #{re_level}  
+      WHERE  COMMON_CODE    = #{common_code} 
+      AND    POST_CODE      = #{post_code}
+   </update>
+
+	<update id="addUpdateComent">
+      UPDATE POSTS 
+      SET    RE_LEVEL = RE_LEVEL + 1  
+      WHERE  COMMON_CODE    = #{common_code} 
+      AND    RE_POST_CODE   = #{post_code}
+      AND    RE_LEVEL 		> #{re_level}
+   </update>
+
+   
+   <delete id="delete">
+      DELETE FROM POSTS 
+      WHERE  COMMON_CODE = #{common_code} 
+      AND    POST_CODE   = #{post_code}
+   </delete>
+   
+   	<select id="getRow" resultType="String">
+		SELECT COUNT(ROWNUM) FROM POSTS WHERE COMMON_CODE = #{common_code}
+	</select>
+	
+</mapper>

@@ -1,0 +1,202 @@
+
+/* 로그인 방법 선택화면 */
+.login_box {
+  /* border: 1px solid rgba(0, 0, 0, 0.2); */
+  height: 700px;
+  width: 600px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.login_Script {
+  height: 300px;
+  width: 360px;
+  margin: 100px auto 0 auto;
+  /* border: 1px solid rgba(0, 0, 0, 0.2); */
+}
+
+.login_Script > img{
+	width: 200px;
+	height: 200px;
+}
+
+.login_Script div{
+	font-size: var(--font28);
+}
+
+.login_btn_1 {
+  width: 150px;
+  height: 80px;
+  margin: var(--base-space) 27px;
+  font-size: var(--font24);
+}
+.kakaoBtn {
+  background-color: yellow;
+}
+
+.naverBtn {
+  background-color: #0ac962;
+  color: var(--mainColorWhite);
+}
+
+.login_btn_2 {
+  width: 370px;
+  height: 80px;
+  margin: calc(var(--base-space) * 2) auto;
+  background-color: var(--mainColorBlue);
+  font-size: var(--font24);
+  color: var(--mainColorWhite);
+  border-radius: 5px;
+}
+
+.login_btn_3 {
+  background-color: white;
+  border: none;
+  font-size: var(--font16);
+  margin: calc(var(--base-space) * 3);
+  border-bottom: 1px solid black;
+}
+
+.login_btn_4 {
+  background-color: white;
+  color: gray;
+  border: none;
+  font-size: var(--font16);
+  margin: calc(var(--base-space) * 3);
+}
+
+.login_btn_5 {
+  background-color: white;
+  border: none;
+  font-size: var(--font16);
+  margin: calc(var(--base-space) * 3);
+}
+
+/* ID 로그인 화면 */
+
+.login_area {
+  text-align: center;
+  margin : 100px auto;
+  width: 400px;
+}
+
+.login_title {
+  margin: calc(var(--base-space) * 8) auto;
+}
+
+.login_info {
+  width: 358px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 60px;
+  font-size: var(--font16);
+  margin: calc(var(--base-space) * 2);
+}
+
+.login_btn_box{
+	display: flex;
+	justify-content: space-around;
+}
+
+/* 아이디 & 비밀번호 찾기 */
+
+.findBox{
+	position: fixed;
+	width:100%;
+	height: 100%;
+	top:0;
+	left:0;
+	text-align: center;
+	font-size: var(--font20);
+	background-color: rgba(0,0,0,0.5);
+	display: flex;
+	align-items: center; 
+	z-index: 10; 
+}
+
+.findForm{
+	position: relative;
+	background-color: var(--mainColorWhite);
+	width: 500px;
+	/* height: 425px; */
+	margin: 0 auto;
+	border-radius: 18px;
+}
+
+.findForm > table{
+	width: inherit;
+	height: 200px;
+}
+
+.email{
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	height: 50px;
+	width: 280px;
+}
+
+.findForm .emailChk{
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	width: 350px;
+	height: 50px;
+}
+
+.findForm tr{
+	display: flex;
+	justify-content: space-around;
+}
+
+.findForm input{
+	margin: 10px 0;
+}
+
+.findIdFormTi{
+	font-size: var(--font28);
+}
+
+.findForm  td {
+	padding-bottom: calc(var(--base-space)*3);
+}
+
+.findBtn{
+	left: 0;
+	bottom:0;
+	height: 70px;
+	width: inherit;
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	font-size: var(--font28);
+	border-radius: 0 0 15px 15px; 
+}
+
+.closeBtn{
+	position: absolute;
+	right: calc(var(--base-space)*3);
+	font-size: var(--font28);
+	background-color: var(--mainColorWhite);
+}
+
+
+.closedBox {
+	display: none;
+}
+
+
+.sendBtn{
+	height: 50px;
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	padding: 0 10px;
+}
+
+
+.apiLoginBox{
+	display: flex;
+	justify-content: space-between;
+	max-width: 370px;
+	margin: 0 auto;
+}
+
+.apiLoginBox img{
+	width: 180px;
+	height: 45px;
+	border-radius: 5px;
+}

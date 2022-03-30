@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.IMessagesDAO">
+	
+	<select id="maxCode" resultType="int">
+		SELECT COUNT(MSG_CODE)
+		FROM   MESSAGES
+	</select>
+	
+	<select id="getMsgCont" resultType="msgDTO">
+        SELECT MSG.*
+        	   , MEM.MEM_NICK AS FROM_MEM_NICK
+        	   , MEM2.MEM_NICK AS TO_MEM_NICK
+		FROM   MESSAGES MSG
+		LEFT JOIN   MEMBERS  MEM  ON MSG.FROM_MEM_CODE = MEM.MEM_CODE
+        LEFT JOIN   MEMBERS  MEM2 ON MSG.TO_MEM_CODE = MEM2.MEM_CODE
+		WHERE  MSG.MSG_CODE = #{msg_code}
+	</select>
+	
+	<select id="to_msg" resultType="msgDTO">
+		SELECT *
+		FROM(SELECT ROWNUM RNUM
+				   , O.*
+			FROM (SELECT MSG.*, MEM.MEM_NICK AS FROM_MEM_NICK
+				  FROM MESSAGES MSG
+				  JOIN MEMBERS  MEM
+				  ON   MSG.FROM_MEM_CODE = MEM.MEM_CODE
+				  WHERE  MSG.TO_MEM_CODE = #{to_mem_code}
+				  ORDER  BY TO_NUMBER(MSG_CODE) DESC) O
+				  )
+		WHERE  RNUM  &gt;= #{start} 
+		AND    ROWNUM &lt;= #{end}
+		
+	</select>
+	
+	<select id="countToMessage" resultType="int">
+		SELECT COUNT(MSG_CODE) 
+		FROM   MESSAGES
+		WHERE  TO_MEM_CODE = #{to_mem_code}
+		AND	   SUBSTR(COMMON_CODE, 3, 2) != 02
+	</select>
+	
+	<select id="from_msg" resultType="msgDTO">
+		SELECT *
+		FROM(SELECT ROWNUM RNUM
+				   , O.*
+			FROM (SELECT MSG.*, MEM.MEM_NICK AS TO_MEM_NICK
+				  FROM MESSAGES MSG
+				  JOIN MEMBERS  MEM
+				  ON   MSG.TO_MEM_CODE = MEM.MEM_CODE
+				  WHERE  FROM_MEM_CODE = #{from_mem_code} 
+				  ORDER  BY TO_NUMBER(MSG_CODE) DESC) O
+				  )
+		WHERE  RNUM  &gt;= #{start} 
+		AND    ROWNUM &lt;= #{end}
+	</select>
+	
+	<select id="countFromMessage" resultType="int">
+		SELECT COUNT(MSG_CODE) 
+		FROM   MESSAGES
+		WHERE  FROM_MEM_CODE = #{from_mem_code}
+		AND	   SUBSTR(COMMON_CODE, 1, 2) != 02
+	</select>
+
+	<insert id="insert" parameterType="msgDTO">
+		INSERT INTO MESSAGES
+		VALUES    ( #{from_mem_code}
+				  , #{to_mem_code}
+				  , #{msg_code}
+				  , #{msg_title}
+				  , #{msg_cont}
+				  , SYSDATE
+				  , #{common_code} <!-- 상태코드 -->
+				  )
+	</insert>
+
+	<update id="msgUpdateState">
+		UPDATE MESSAGES 
+		SET	   COMMON_CODE = #{common_code}
+		WHERE  MSG_CODE = #{msg_code} 
+	</update>
+	
+	<select id="getNoRead" resultType="int">
+		SELECT COUNT(COMMON_CODE)
+		FROM   MESSAGES
+		WHERE  TO_MEM_CODE = #{to_mem_code}
+		AND	   SUBSTR(COMMON_CODE, 4, 2) = 01
+	</select>
+
+</mapper>

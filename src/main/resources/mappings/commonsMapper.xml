@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamHT.helloTraveler.DAO.ICommonsDAO">
+
+	<select id='getCommon' resultType="comDTO">
+		SELECT *
+		FROM   COMMONS
+		WHERE  COMMON_CODE = #{common_code}
+	</select>
+
+
+	<select id="findByLikeCommonCode" resultType="comDTO">
+		SELECT *
+		FROM   COMMONS
+		WHERE  COMMON_CODE LIKE #{code}||'%'
+		ORDER  BY COMMON_CODE
+	</select>
+</mapper>

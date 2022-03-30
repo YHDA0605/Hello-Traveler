@@ -1,0 +1,56 @@
+
+#select {
+	text-align: center;
+	margin-top: 0px;
+	font-size: var(--font24);
+}
+
+#select button {
+	border-radius: 80px;
+	background-color: var(--mainColorBlue);
+	margin: 10px;
+	height: 250px;
+	width: 300px;
+	font-size: var(--font24);
+	color: var(--mainColorWhite);
+}
+
+/* regist */
+.regist>div {
+	width: var(--base-width);
+	margin: 0 auto;
+}
+
+.container {
+	width: 1200px;
+	margin: 80px auto;
+	text-align: center;
+}
+
+.title {
+	color: var(--mainColorBlack);
+	font-size: var(--font28);
+	text-align: center;
+	margin-top: 80px;
+	width: 400px;
+	padding: 50px 0px;
+	margin: 0 auto;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+	padding: 20px 0px;
+}
+
+.registChak_Btn {
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+}
+
+.exclamation_img {
+	margin-top: 50px;
+	height: 80px;
+}
+

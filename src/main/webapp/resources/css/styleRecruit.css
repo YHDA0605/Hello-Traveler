@@ -1,0 +1,255 @@
+
+.contents {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.btn {
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	cursor: pointer;
+}
+
+.title {
+	margin-top: calc(var(--base-space)*4);
+	padding: var(--base-space);
+	font-size: var(--font24);
+}
+
+.write {
+	text-align: right;
+}
+
+.Sbtn {
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+}
+
+.Sbtn2 {
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+	background-color: rgb(161, 161, 161);
+	color: var(--mainColorBlack);
+}
+
+.NextBtn {
+	display: flex;
+	justify-content: center;
+}
+/* 모집 UI */
+.recruit_Box {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.recruit_wrap {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 10px;
+}
+
+.recruit_wrap>div {
+	margin: calc(var(--base-space)*2);
+}
+
+.recruit_contents_top {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+
+.recruit_Box .recruit_contents_title {
+	font-size: var(--font20);
+	width: 228px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#super .recruit_contents_title{
+	font-size: var(--font20);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 200px;
+}
+
+.recruit_contents_hit {
+	text-align: right;
+	font-size: var(--font12);
+}
+
+.recruit_contents_bottom {
+	font-size: var(--font12);
+}
+
+.recruit_contents_top > div {
+	padding:5px;
+}
+
+.recruiting{
+	background: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	border-radius: 10px;
+}
+
+.recruitied{
+	background: gray;
+	border-radius: 10px;
+}
+
+/* 여기부터 게시글 보는 UI */
+.contentBox {
+	border-top: 1px solid black;
+	border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+	margin: var(--base-space) 0;
+}
+
+.articleBtn {
+	text-align: right;
+	margin: calc(var(--base-space)*5);
+}
+
+.articleInfo {
+	display: flex;
+	justify-content: space-between;
+}
+.articleInfo > div {
+	width: 200px;
+	/* text-align: center; */
+}
+
+.recru_contentTitle {
+	font-size: var(--font28);
+	margin: calc(var(--base-space)*5);
+	word-break:break-all;
+}
+
+.recru_contentInfo{
+	border: 1px solid black;
+	width: 800px;
+	padding: 20px;
+	margin: calc(var(--base-space)*4);
+	border-radius: 5px;
+	font-size: var(--font20);
+}
+.recru_contentInfo div{
+	padding: 5px;
+}
+.recru_contentInfo span{
+	color: gray;
+}
+
+.recru_content {
+	font-size: var(--font16);
+	margin: calc(var(--base-space)*5);
+	min-height: 250px;
+}
+
+
+/* 커뮤니티 글쓰기 */
+.recruit_container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.common_name{
+	padding: var(--base-space);
+	font-size: var(--font24);
+}
+
+.recruit_title {
+	width: 978px;
+	margin: 10px 0;
+	padding: calc(var(--base-space) * 2);
+	font-size: var(--font24);
+	border: 1px solid black;
+}
+
+textarea {
+	border: 1px solid black;
+	resize: none;
+}
+
+.recruit_table {
+	margin: 10px 0;
+	border-collapse: collapse;
+	text-align: center;
+	width: 1000px;
+}
+
+.recruit_table td {
+	border-collapse: collapse;
+	border: 1px solid black;
+	padding: var(--base-space);
+}
+
+.recruit_table input {
+	border: 1px solid black;
+}
+
+.btn {
+	background-color: var(--mainColorBlue);
+	color: var(--mainColorWhite);
+	width: var(--btn2Wid);
+	height: var(--btn2Hei);
+}
+
+.back_Btn {
+	display: flex;
+	justify-content: right;
+}
+
+.recruit_top{
+	margin: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	
+}
+
+.recruit_body{
+	display: flex;
+	justify-content: center;
+}
+
+.recruit_contents {
+	margin: 10px 0;
+	margin: var(--base-space);
+	padding: calc(var(--base-space)*2);
+	width: 268px;
+	
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 20px;
+}
+
+.recu_cont{
+	padding: calc(var(--base-space) * 2);
+	margin:10px 0;
+	min-height: 400px;
+	width: 978px;
+	resize: none;
+}
+
+.recruit_content_images > textarea{
+	margin: 20px 0;
+	width: 1000px;
+	min-height: 100px;
+}
+
+
+<!--여기 event 추가된 부분-->
+.event_content_top{
+	display: flex;
+  	justify-content: space-between;
+}
+
+.IMGS{
+	width: 100%;
+	height: 80px
+}
+
