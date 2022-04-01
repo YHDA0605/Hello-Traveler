@@ -5,7 +5,7 @@
  ## :pushpin: Intro
 >+ <b>name</b> : 조연하
 >+ <b>tel</b> : 010.5138.1950
->+ <b>email</b> : <whdusgk0605@naver.com>
+>+ <b>email</b> : <yeonhajo65@gmail.com>
 
 
  ## :pushpin: Project 
@@ -23,12 +23,8 @@
 ><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"></a>
 ><img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"></a>
 ><img src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=JSON&logoColor=white"></a>
-><img src="https://img.shields.io/badge/Apache-D22128?style=for-the-badge&logo=Apache&logoColor=white"></a><br>
-><img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=white"></a>
 ><img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white"></a>
 ><img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white"></a>
-><img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white"></a>
-><img src="https://img.shields.io/badge/API-000000?style=for-the-badge&logo=API&logoColor=white"></a>
 ><br>
 ><details>
 ><summary>ERD</summary>
