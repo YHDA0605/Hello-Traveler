@@ -29,10 +29,10 @@
 ><img src="https://img.shields.io/badge/API-000000?style=for-the-badge&logo=API&logoColor=white"></a>
 ><br>
 ><details>
->   <summary>ERD</summary>
-
-
-</details>
+><summary>ERD</summary>
+><img width="100%" src="https://user-images.githubusercontent.com/86191913/161224756-37aaf2e2-b97f-4be4-b4c9-75d3b97a9b32.jpeg"/>
+>
+></details>
 
 ### 맡은 파트
 >
