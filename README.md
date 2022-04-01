@@ -1,12 +1,14 @@
-<h1>끊임 없이 배우고 싶은 신입 개발자 조연하 입니다.</h1>
 
-## Intro
->+ name : 조연하
->+ tel : 010.5138.1950
->+ email : <whdusgk0605@naver.com>
+<img src="https://capsule-render.vercel.app/api?type=Waving&color=FFE400&height=300&section=header&text=capsule%20render&fontSize=90" />
 <br>
 
-## Project 
+ ## :pushpin: Intro
+>+ <b>name</b> : 조연하
+>+ <b>tel</b> : 010.5138.1950
+>+ <b>email</b> : <whdusgk0605@naver.com>
+<br>
+
+ ## :pushpin: Project 
 > ### <b>Hello,Traveler<b> (4인 팀 프로젝트)<br>
 >개발기간 : 2021.12.01 ~ 2022.02.27 <br>
 ><br>
@@ -34,7 +36,7 @@
 >
 ></details>
 
-### 맡은 파트
+## :pushpin: 맡은 파트
 >
 >+ 회원가입 폼 입력 제한조건 :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/604d63884ef6e3312068a31fe026e144644c1a9c/src/main/webapp/resources/js/regist.js#L83)
 >+ 회원탈퇴 :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/9dc1823fb54c116b299e9556d76acb2863367934/src/main/java/com/teamHT/helloTraveler/HomeController.java#L256)
