@@ -1,12 +1,12 @@
 
-<img src="https://capsule-render.vercel.app/api?type=Waving&color=FFE400&height=300&section=header&text=capsule%20render&fontSize=90" />
+<img src="https://capsule-render.vercel.app/api?type=Waving&color=FFE400&height=180&section=header&text=YEONHA%20JO'sPortfolio&fontSize=50" />
 <br>
 
  ## :pushpin: Intro
 >+ <b>name</b> : 조연하
 >+ <b>tel</b> : 010.5138.1950
 >+ <b>email</b> : <whdusgk0605@naver.com>
-<br>
+
 
  ## :pushpin: Project 
 > ### <b>Hello,Traveler<b> (4인 팀 프로젝트)<br>
