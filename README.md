@@ -1,14 +1,11 @@
 
-<img src="https://capsule-render.vercel.app/api?type=Waving&color=FFE400&height=180&section=header&text=Hello,Traveler&fontSize=50" />
-<br>
-
- ## :pushpin: Intro
+ ## :pushpin: 소개
 >+ <b>name</b> : 조연하
 >+ <b>tel</b> : 010.5138.1950
 >+ <b>email</b> : <yeonhajo65@gmail.com>
 
 
- ## :pushpin: Project 
+ ## :pushpin: 프로젝트 
 > ### <b>Hello,Traveler<b> (4인 팀 프로젝트)<br>
 >개발기간 : 2021.12.01 ~ 2022.02.27 <br>
 ><br>
@@ -17,7 +14,7 @@
 > <br>
 >:punch: <b>주요 사용기술</b> :punch:<br>
 ><br>
-><img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"></a>
+><img src="https://img.shields.io/badge/java8-007396?style=for-the-badge&logo=java&logoColor=white"></a>
 ><img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"></a>
 ><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"></a>
 ><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"></a>
