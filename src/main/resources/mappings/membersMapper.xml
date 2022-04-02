@@ -38,8 +38,8 @@
 			SELECT *
 			FROM   MEMBERS
 			WHERE  MEM_SNS_ID = #{mem_sns_id}
+		  	AND    MEM_STATE = 0 	<!--///////04/01 추가 ////////  -->
 	</select>
-
 
 	<select id="emailCheck" resultType="memDTO">
 		SELECT *
