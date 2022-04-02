@@ -75,14 +75,14 @@
                      	</td>   
                   	</tr>
                   	<tr>
-                  	<!-- 20/13 수정부분!!!! -->
+                  	<!-- 2/13 수정부분!!!! -->
                      	<th>휴대폰 번호</th>
                      	<td>
                         	<input type="text" name="mem_phone"  placeholder="'-'없이 숫자만 입력해주세요." class="chknumber outline chkPlace" id="number"> 
                        		<div class="result-phone chkResult"></div>
                      	</td>
                   	</tr>
-                  	<!-- 20/13 수정부분!!!! -->
+                  	<!-- 2/13 수정부분!!!! -->
                   	<tr>
                      	<th>이메일</th>
                      	<td>
