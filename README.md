@@ -33,8 +33,19 @@
 >
 >+ 회원가입 폼 입력 제한조건 :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/604d63884ef6e3312068a31fe026e144644c1a9c/src/main/webapp/resources/js/regist.js#L83)
 >+ 회원탈퇴 :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/9dc1823fb54c116b299e9556d76acb2863367934/src/main/java/com/teamHT/helloTraveler/HomeController.java#L256)
+><details>
+> &nbsp;  &nbsp; &nbsp;<summary>로그인,탈퇴 시연영상 보기</summary>
+><img width="100%" src="https://user-images.githubusercontent.com/86191913/161915537-5e2ad99b-9730-41ee-ba5a-d2a72a1eb3a6.gif"/>
+>
+></details>
+>
 >+ Kakao 로그인 API  :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/68cb76ff3250b539c1f522f3594d4ad9b99d9fb8/src/main/java/com/teamHT/helloTraveler/KakaoController.java#L1)
 >+ 로그인 UI :heavy_check_mark: [코드확인](https://github.com/YeonHaJo/Portfolio/blob/b049f2dcdc5af9dfd937d24561edfedf8c5720af/src/main/webapp/WEB-INF/views/regist/registNormal.jsp#L1)
+><details>
+>&nbsp;  &nbsp; &nbsp;<summary>카카오 로그인 시연영상 보기</summary>
+><img width="100%" src="https://user-images.githubusercontent.com/86191913/161917101-fb464bfc-42ea-471e-a1df-bc979ac949a3.gif"/>
+>
+></details>
 
 ## :pushpin: 기술적으로 어려웠던 점 & 해결방법
 >+ 어려웠던 점 : sns으로 로그인을 하면 api 에서 자동적으로 고유한 회원번호10자리(id)가 주어져 이 id로 로그인을 하는 로직을 짜야하는데  기존 members 테이블에 있는 mem_id컬럼이 UNN 로 제약조건을 지정 해뒀기 때문에 무조건적으로 mem_id 가 들어가지 않으면 안되는 상황에 많은 고민을 해야했다.
