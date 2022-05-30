@@ -2,7 +2,7 @@
  ## :pushpin: 소개
 >+ <b>이름</b> : 조연하
 >+ <b>연락처</b> : 010.5138.1950
->+ <b>email</b> : <whdusgk0605@naver.com>
+>+ <b>email</b> : <yeonhajo65@gmail.com>
 
 
  ## :pushpin: 프로젝트 
