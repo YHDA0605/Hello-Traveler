@@ -32,9 +32,19 @@
 ## :pushpin: 맡은 파트
 >
 >+ 회원가입 폼 입력 제한조건 :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/604d63884ef6e3312068a31fe026e144644c1a9c/src/main/webapp/resources/js/regist.js#L83)
+>
 >+ 회원탈퇴 :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/9dc1823fb54c116b299e9556d76acb2863367934/src/main/java/com/teamHT/helloTraveler/HomeController.java#L256)
 ><details>
-> &nbsp;  &nbsp; &nbsp;<summary>로그인,탈퇴 시연영상 보기</summary>
+> &nbsp;  &nbsp; &nbsp;<summary>회원가입 코드 설명</summary>
+>일반회원 회원가입 ui를 HTML 과 Css를 통한 구현과 제이쿼리로 회원가입 폼 입력시 입력제한을 걸어 회원 테이블내 각 컬럼의 데이터의 크기와 조건에 맞게 입력받을 수 있도록 하였습니다. 
+>그리고 회원 테이블 속성의 제약조건을 만족시키기 위해 Json 으로 클라이언트로부터 입력받은 값을 중복값 확인을 위해 만들어진 controller url과 연결하고, 비즈니스 로직을 통해 DB 와 연결하여 중복값을 확인 후, 결과 값을 가져와 중복인지를 확인을 하는데, 이때 확인하는 동작 실행시 페이지 이동하는 번거로움을 줄이기 위해 Ajax를 연동하여 로직을 만들었습니다.
+></details>
+><details>
+> &nbsp;  &nbsp; &nbsp;<summary>회원탈퇴 코드 설명</summary>
+>로그인한 회원의 마이페이지 네비게이션 메뉴에 회원탈퇴 버튼을 활성화 시켜 회원탈퇴 의사를 묻는 알림창을 띄운 뒤, 회원탈퇴 버튼을 클릭하면 mapping된 controller의 회원삭제를 실행시켜 회원삭제 서비스에서 DB와 연결하여 회원상태 속성을 탈퇴로 바꾸어 저장하고 돌아온 후 로그아웃 처리와 함께 탈퇴완료 알림 메시지를 띄우도록 하였습니다. 
+></details>
+><details>
+> &nbsp;  &nbsp; &nbsp;<summary>:dvd:로그인,탈퇴 시연영상 보기</summary>
 ><img width="100%" src="https://user-images.githubusercontent.com/86191913/161915537-5e2ad99b-9730-41ee-ba5a-d2a72a1eb3a6.gif"/>
 >
 ></details>
@@ -42,10 +52,18 @@
 >+ Kakao 로그인 API  :heavy_check_mark: [코드확인](https://github.com/YHDA0605/Portfolio/blob/68cb76ff3250b539c1f522f3594d4ad9b99d9fb8/src/main/java/com/teamHT/helloTraveler/KakaoController.java#L1)
 >+ 로그인 UI :heavy_check_mark: [코드확인](https://github.com/YeonHaJo/Portfolio/blob/b049f2dcdc5af9dfd937d24561edfedf8c5720af/src/main/webapp/WEB-INF/views/regist/registNormal.jsp#L1)
 ><details>
->&nbsp;  &nbsp; &nbsp;<summary>카카오 로그인 시연영상 보기</summary>
+>&nbsp;  &nbsp; &nbsp;<summary>SNS 로그인 및 회원등록 코드 설명</summary>
+>카카오톡 API를 사용하여 사용자의 정보를 받아와 Service로직 에서 등록여부를 확인하고, 등록이 확인되면 로그인을 성공시키고, 등록되지 않은 회원일 경우 DB에 회원등록을 위해 API로 받아 온 정보를 제외한 NOTNULL 로 제약조건이 걸린 속성에 들어갈 데이터를 입력 받기 위한 회원가입 폼을 따로 구현하여 SNS회원용 로그인 및 회원등록 로직을 만들었습니다. 
+>
+></details>
+><details>
+>&nbsp;  &nbsp; &nbsp;<summary>:dvd:카카오 로그인 시연영상 보기</summary>
 ><img width="100%" src="https://user-images.githubusercontent.com/86191913/161917101-fb464bfc-42ea-471e-a1df-bc979ac949a3.gif"/>
 >
 ></details>
+>
+>+ 중복 코드 모듈화 : 마이페이지에 있는 네이게이션 바 의 코드가 각 페이지 마다 중복으로 있어야 하는 걸 확인 후, 독립된 하나의<br>
+> jsp파일로 만들어 필요한 페이지에 <%@include%> 디렉티브를 통해 코드중복을 최소화 하였습니다.
 
 ## :pushpin: 기술적으로 어려웠던 점 & 해결방법
 >+ 어려웠던 점 : sns으로 로그인을 하면 api 에서 자동적으로 고유한 회원번호10자리(id)가 주어져 이 id로 로그인을 하는 로직을 짜야하는데  기존 members 테이블에 있는 mem_id컬럼이 UNN 로 제약조건을 지정 해뒀기 때문에 무조건적으로 mem_id 가 들어가지 않으면 안되는 상황에 많은 고민을 해야했다.
